@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -44,7 +45,7 @@ class BookController
     /**
      * Update a book.
      */
-    public function update(StoreBookRequest $request, Book $book): JsonResponse
+    public function update(UpdateBookRequest $request, Book $book): JsonResponse
     {
         $book->update($request->validated());
 
