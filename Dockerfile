@@ -1,5 +1,8 @@
 FROM php:8.3-fpm-alpine
 
+# Set environment variable to allow Composer to run as root securely inside the container
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 # Install system dependencies and PostgreSQL dev libraries
 RUN apk add --no-cache \
     nginx \
@@ -25,8 +28,8 @@ WORKDIR /var/www
 # Copy existing application directory contents
 COPY . /var/www
 
-# Install production dependencies (Adding --no-scripts prevents errors from hooks)
-RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
+# Install production dependencies cleanly with platform check bypasses
+RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts --ignore-platform-reqs
 
 # Setup directory permissions for Laravel storage
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
