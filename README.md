@@ -185,7 +185,7 @@ php artisan serve
 
 ---
 
-## 🌐 Deployment
+## Deployment
 
 * **Application Hosting:** Render
 * **Database Hosting:** Neon PostgreSQL
