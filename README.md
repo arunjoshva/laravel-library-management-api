@@ -1,58 +1,193 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Library Management API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A RESTful Library Management API built with **Laravel 13** and **PostgreSQL**. The application provides secure authentication using Laravel Sanctum and CRUD operations for managing Authors and Books. The API is deployed on Render and uses Neon as its cloud hosted PostgreSQL database.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Live Demo
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Base URL**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```text
+https://laravel-library-management-api.onrender.com
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Tech Stack
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Laravel 13
+* PHP 8.x
+* PostgreSQL
+* Laravel Sanctum
+* Neon PostgreSQL
+* Render
+* Postman
+* Git & GitHub
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Features
 
-## Security Vulnerabilities
+### Authentication
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* User Registration
+* User Login
+* User Logout
+* User Profile
+* Token-based Authentication using Laravel Sanctum
 
-## License
+### Authors
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* Create Author
+* View All Authors
+* View Single Author
+* Update Author
+* Delete Author
+
+### Books
+
+* Create Book
+* View All Books
+* View Single Book
+* Update Book
+* Delete Book
+
+---
+
+## API Endpoints
+
+### Authentication
+
+| Method | Endpoint        |
+| ------ | --------------- |
+| POST   | `/api/register` |
+| POST   | `/api/login`    |
+| POST   | `/api/logout`   |
+| GET    | `/api/profile`  |
+
+### Authors
+
+| Method | Endpoint            |
+| ------ | ------------------- |
+| GET    | `/api/authors`      |
+| POST   | `/api/authors`      |
+| GET    | `/api/authors/{id}` |
+| PUT    | `/api/authors/{id}` |
+| DELETE | `/api/authors/{id}` |
+
+### Books
+
+| Method | Endpoint          |
+| ------ | ----------------- |
+| GET    | `/api/books`      |
+| POST   | `/api/books`      |
+| GET    | `/api/books/{id}` |
+| PUT    | `/api/books/{id}` |
+| DELETE | `/api/books/{id}` |
+
+---
+
+## Authentication
+
+After logging in, include the access token in the request header.
+
+```http
+Authorization: Bearer YOUR_ACCESS_TOKEN
+Accept: application/json
+```
+
+---
+
+## Sample Request
+
+### Register
+
+**POST**
+
+```http
+/api/register
+```
+
+```json
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123"    
+}
+```
+
+---
+
+### Login
+
+**POST**
+
+```http
+/api/login
+```
+
+```json
+{
+    "email": "john@example.com",
+    "password": "password123"
+}
+```
+
+---
+
+### Create Author
+
+**POST**
+
+```http
+/api/authors
+```
+
+```json
+{
+    "name": "Robert C. Martin",
+    "bio": "Software engineer and author.",
+    "date_of_birth": "1952-12-05",
+    "nationality": "American"
+}
+```
+
+---
+
+### Create Book
+
+**POST**
+
+```http
+/api/books
+```
+
+```json
+{
+    "title": "Clean Code",
+    "author_name": "Robert C. Martin",
+    "isbn": "9780132350884",
+    "description": "A handbook of agile software craftsmanship.",
+    "published_year": 2008,
+    "total_copies": 3000,
+    "available_copies": 1500
+}
+```
+
+---
+
+Start the development server:
+
+```bash
+php artisan serve
+```
+
+---
+
+## 🌐 Deployment
+
+* **Application Hosting:** Render
+* **Database Hosting:** Neon PostgreSQL
+
+---
