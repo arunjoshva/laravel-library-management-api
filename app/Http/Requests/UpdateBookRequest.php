@@ -28,7 +28,7 @@ class UpdateBookRequest extends FormRequest
             'author_name' => 'sometimes|required|string|max:255',
             'isbn' => ['sometimes', 'required', 'string', 'max:20', Rule::unique('books')->ignore($this->book)],
             'description' => 'nullable|string',
-            'published_year' => 'sometimes|required|integer|min:1900|max:'.date('Y'),
+            'published_year' => ['sometimes|required|integer|min:1900|max:'.date('Y')],
             'total_copies' => 'sometimes|required|integer|min:1000',
             'available_copies' => 'sometimes|required|integer|min:500'
         ];
