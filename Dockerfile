@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 # Set environment variable to allow Composer to run as root securely inside the container
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -29,7 +29,7 @@ WORKDIR /var/www
 COPY . /var/www
 
 # Install production dependencies cleanly with platform check bypasses
-RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts --ignore-platform-reqs
+RUN composer install --no-interaction --optimize-autoloader --no-dev --no-scripts
 
 # Setup directory permissions for Laravel storage
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
