@@ -15,7 +15,7 @@ RUN apk add --no-cache \
 RUN docker-php-ext-install pdo pdo_pgsql bcmath xml
 
 # Get latest Composer
-COPY --from:composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www
@@ -35,4 +35,4 @@ COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 80
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD php artisan migrate --force && /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
