@@ -34,6 +34,10 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev --no-script
 # Setup directory permissions for Laravel storage
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
+# Copy nginx and supervisor configs into place
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 EXPOSE 80
 
 CMD /usr/local/bin/php artisan config:clear && /usr/local/bin/php artisan route:clear && /usr/local/bin/php artisan migrate --force && /usr/local/bin/php artisan config:cache && /usr/local/bin/php artisan route:cache && /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
